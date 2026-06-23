@@ -18,61 +18,53 @@ export async function POST(request: Request) {
     const data = parsed.data;
     const supabase = await createClient();
 
-    const { data: insertedData, error } = await supabase
-      .from("rsvps")
-      .insert({
-        full_name: data.full_name,
-        graduation_year: data.graduation_year,
-        department: data.department,
-        phone_number: data.phone_number,
-        email: data.email || null,
-        attending_status: data.attending_status,
-        sadhya_status:
-          data.attending_status === "yes" ? (data.sadhya_status ?? null) : null,
-        guest_count: 1,
-        special_requirements:
-          data.attending_status === "yes"
-            ? data.special_requirements || null
-            : null,
-      })
-      .select("id")
-      .single();
+    const { data: insertedId, error } = await supabase.rpc("insert_rsvp", {
+      f_name: data.full_name,
+      grad_year: data.graduation_year,
+      dept: data.department,
+      phone: data.phone_number,
+      mail: data.email || null,
+      attend: data.attending_status,
+      sadhya:
+        data.attending_status === "yes"
+          ? (data.sadhya_status ?? null)
+          : null,
+      reqs:
+        data.attending_status === "yes"
+          ? data.special_requirements || null
+          : null,
+    });
 
- if (error) {
-  console.error("SUPABASE ERROR:", error);
+    if (error) {
+      console.error("RSVP insertion database error:", error);
+      if (error.code === "23505") {
+        return NextResponse.json(
+          {
+            error:
+              "An RSVP has already been submitted with this phone number.",
+          },
+          { status: 409 },
+        );
+      }
 
-  if (error.code === "23505") {
-    return NextResponse.json(
-      {
-        error:
-          "An RSVP has already been submitted with this phone number.",
-      },
-      { status: 409 },
-    );
-  }
-
-  return NextResponse.json(
-    {
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint,
-    },
-    { status: 500 },
-  );
-}
-
-    if (!insertedData) {
       return NextResponse.json(
-        { error: "Unable to retrieve saved RSVP." },
+        { error: `Unable to save RSVP: ${error.message}` },
         { status: 500 },
       );
     }
 
-    const response = NextResponse.json({ success: true, id: insertedData.id });
+    if (!insertedId) {
+      console.error("RSVP insertion returned no data");
+      return NextResponse.json(
+        { error: "Unable to retrieve saved RSVP ID from database." },
+        { status: 500 },
+      );
+    }
+
+    const response = NextResponse.json({ success: true, id: insertedId });
     
     // Store RSVP ID in secure HTTP-only cookie (lasts 1 year)
-    response.cookies.set("rsvp_id", insertedData.id, {
+    response.cookies.set("rsvp_id", insertedId, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
@@ -81,9 +73,10 @@ export async function POST(request: Request) {
     });
 
     return response;
-  } catch {
+  } catch (err: any) {
+    console.error("RSVP insertion caught exception:", err);
     return NextResponse.json(
-      { error: "Invalid request payload." },
+      { error: `Request execution failed: ${err.message || err}` },
       { status: 400 },
     );
   }

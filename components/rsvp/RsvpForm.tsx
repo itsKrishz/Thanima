@@ -56,30 +56,43 @@ export function RsvpForm({
     const url = isAdmin ? "/api/admin/rsvp" : "/api/rsvp";
     const method = isEdit ? "PUT" : "POST";
 
-    const response = await fetch(url, {
-      method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...values,
-        id: initialData?.id,
-        email: values.email || undefined,
-        special_requirements: values.special_requirements || undefined,
-        sadhya_status:
-          values.attending_status === "yes" ? values.sadhya_status : undefined,
-      }),
-    });
+    try {
+      const response = await fetch(url, {
+        method: method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...values,
+          id: initialData?.id,
+          email: values.email || undefined,
+          special_requirements: values.special_requirements || undefined,
+          sadhya_status:
+            values.attending_status === "yes" ? values.sadhya_status : undefined,
+        }),
+      });
 
-    const payload = (await response.json()) as { error?: string };
+      let errorMsg = `Unable to ${isEdit ? "update" : "submit"} RSVP. Please try again.`;
 
-    if (!response.ok) {
-      setSubmitError(payload.error ?? `Unable to ${isEdit ? "update" : "submit"} RSVP. Please try again.`);
-      return;
-    }
+      try {
+        const payload = (await response.json()) as { error?: string };
+        if (payload && payload.error) {
+          errorMsg = payload.error;
+        }
+      } catch {
+        errorMsg = `Server Error (${response.status}): Please check if you have run the database migration and configured the environment variables on Vercel.`;
+      }
 
-    if (onSuccess) {
-      onSuccess();
-    } else {
-      setSubmitted(true);
+      if (!response.ok) {
+        setSubmitError(errorMsg);
+        return;
+      }
+
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        setSubmitted(true);
+      }
+    } catch (err: any) {
+      setSubmitError(`Network or connection error: ${err.message || err}`);
     }
   }
 

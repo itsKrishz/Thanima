@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { RsvpForm } from "@/components/rsvp/RsvpForm";
 import { FindRsvp } from "@/components/rsvp/FindRsvp";
+import { CountdownTimer } from "@/components/rsvp/CountdownTimer";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import type { Rsvp } from "@/lib/types/rsvp";
@@ -88,15 +89,7 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
             )}
           </div>
         </Card>
-
-        <div className="text-center">
-          <button
-            onClick={() => setMode("find")}
-            className="text-sm font-medium text-sargam-gold hover:text-sargam-crimson transition-colors"
-          >
-            Looking for a different RSVP? Find RSVP
-          </button>
-        </div>
+        <CountdownTimer targetDate="2026-08-19T10:00:00" />
       </div>
     );
   }
@@ -133,7 +126,11 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
 
   return (
     <div className="space-y-6">
-      <RsvpForm />
+      <RsvpForm
+        onSuccess={() => {
+          window.location.reload();
+        }}
+      />
       <div className="text-center">
         <button
           onClick={() => setMode("find")}

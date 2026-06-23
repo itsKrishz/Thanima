@@ -93,3 +93,50 @@ begin
   return found;
 end;
 $$;
+
+-- 4. Insert RSVP (Security Definer)
+create or replace function public.insert_rsvp(
+  f_name text,
+  grad_year text,
+  dept text,
+  phone text,
+  mail text,
+  attend text,
+  sadhya text,
+  reqs text
+)
+returns uuid
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  new_id uuid;
+begin
+  insert into public.rsvps (
+    full_name,
+    graduation_year,
+    department,
+    phone_number,
+    email,
+    attending_status,
+    sadhya_status,
+    guest_count,
+    special_requirements
+  ) values (
+    f_name,
+    grad_year,
+    dept,
+    phone,
+    nullif(mail, ''),
+    attend,
+    nullif(sadhya, ''),
+    1, -- guest_count constraint
+    nullif(reqs, '')
+  )
+  returning id into new_id;
+  
+  return new_id;
+end;
+$$;
+
