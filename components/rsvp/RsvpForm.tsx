@@ -70,7 +70,7 @@ export function RsvpForm({
         }),
       });
 
-      let errorMsg = `Unable to ${isEdit ? "update" : "submit"} RSVP. Please try again.`;
+      let errorMsg = `Unable to ${isEdit ? "update" : "submit"} RSVP (Status ${response.status}). Please try again.`;
 
       try {
         const payload = (await response.json()) as { error?: string };
