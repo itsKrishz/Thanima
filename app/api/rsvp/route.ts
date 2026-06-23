@@ -38,22 +38,29 @@ export async function POST(request: Request) {
       .select("id")
       .single();
 
-    if (error) {
-      if (error.code === "23505") {
-        return NextResponse.json(
-          {
-            error:
-              "An RSVP has already been submitted with this phone number.",
-          },
-          { status: 409 },
-        );
-      }
+ if (error) {
+  console.error("SUPABASE ERROR:", error);
 
-      return NextResponse.json(
-        { error: "Unable to save RSVP. Please try again later." },
-        { status: 500 },
-      );
-    }
+  if (error.code === "23505") {
+    return NextResponse.json(
+      {
+        error:
+          "An RSVP has already been submitted with this phone number.",
+      },
+      { status: 409 },
+    );
+  }
+
+  return NextResponse.json(
+    {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    },
+    { status: 500 },
+  );
+}
 
     if (!insertedData) {
       return NextResponse.json(
