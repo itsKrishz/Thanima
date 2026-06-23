@@ -46,31 +46,19 @@ export async function Header() {
           <Link href="/#contact" className="text-sm font-medium text-sargam-green hover:text-sargam-gold transition-colors">
             Contact
           </Link>
-          {isAdmin ? (
+          {isAdmin && (
             <Link href="/admin" className="text-sm font-medium text-sargam-crimson hover:opacity-80 transition-opacity">
               Dashboard
-            </Link>
-          ) : (
-            <Link href="/admin" className="text-sm font-medium text-sargam-green hover:text-sargam-gold transition-colors">
-              Admin Login
             </Link>
           )}
         </nav>
 
         {/* Sign Out Button for Logged-in Admins */}
-        {isAdmin ? (
+        {isAdmin && (
           <div className="flex items-center gap-4">
             <span className="hidden text-xs text-sargam-green/60 md:inline">Admin Mode</span>
             <SignOutButton />
           </div>
-        ) : (
-          /* Mobile Admin Login link if not logged in */
-          <Link
-            href="/admin"
-            className="rounded-lg border border-sargam-gold/50 px-3 py-1.5 text-xs font-medium text-sargam-green hover:bg-sargam-cream transition sm:hidden"
-          >
-            Admin Login
-          </Link>
         )}
       </div>
     </header>

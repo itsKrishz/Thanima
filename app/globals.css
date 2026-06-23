@@ -33,3 +33,7 @@ body {
     radial-gradient(circle at 50% 80%, rgb(22 58 36 / 0.08) 0 2px, transparent 2px);
   background-size: 120px 120px;
 }
+
+html {
+  scroll-behavior: smooth;
+}

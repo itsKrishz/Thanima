@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "SARGAM'26 Alumni RSVP",
   description:
     "Confirm your attendance for SARGAM'26 and help us make the necessary arrangements.",
+  icons: {
+    icon: "/sagram_logo.png",
+  },
 };
 
 import { Header } from "@/components/layout/Header";
