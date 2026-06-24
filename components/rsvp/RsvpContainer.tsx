@@ -21,6 +21,7 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
   if (mode === "already_submitted" && rsvp) {
     return (
       <div className="space-y-6">
+        <CountdownTimer targetDate="2026-08-19T10:00:00" />
         <Card className="border-sargam-gold bg-white p-6 shadow-sm">
           <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <div>
@@ -89,7 +90,6 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
             )}
           </div>
         </Card>
-        <CountdownTimer targetDate="2026-08-19T10:00:00" />
       </div>
     );
   }
