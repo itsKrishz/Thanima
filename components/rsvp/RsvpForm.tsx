@@ -157,7 +157,7 @@ export function RsvpForm({
           />
           <div className="md:col-span-2">
             <Input
-              label="Email Address (Optional)"
+              label="Email Address *"
               type="email"
               placeholder="you@example.com"
               error={form.formState.errors.email?.message}

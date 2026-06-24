@@ -24,9 +24,8 @@ export const rsvpSchema = z
     email: z
       .string()
       .trim()
-      .email("Enter a valid email address")
-      .optional()
-      .or(z.literal("")),
+      .min(1, "Email address is required")
+      .email("Enter a valid email address"),
     attending_status: z.enum(["yes", "no", "maybe"]),
     sadhya_status: z.enum(["yes", "no"]).optional(),
     special_requirements: z.string().trim().max(1000).optional(),
