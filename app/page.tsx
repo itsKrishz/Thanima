@@ -78,13 +78,13 @@ export default async function HomePage() {
           <div className="grid gap-6 sm:grid-cols-2">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-sargam-gold mb-1">Coordinator 1</p>
-              <p className="text-sm font-semibold text-sargam-green">Contact Name 1</p>
-              <p className="text-sm text-sargam-green/70">+91 98765 43210</p>
+              <p className="text-sm font-semibold text-sargam-green">Athul</p>
+              <p className="text-sm text-sargam-green/70">+91 83018 71398</p>
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.1em] text-sargam-gold mb-1">Coordinator 2</p>
-              <p className="text-sm font-semibold text-sargam-green">Contact Name 2</p>
-              <p className="text-sm text-sargam-green/70">+91 99988 77766</p>
+              <p className="text-sm font-semibold text-sargam-green">Bhadra</p>
+              <p className="text-sm text-sargam-green/70">+91 79940 73284 </p>
             </div>
           </div>
         </section>

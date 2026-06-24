@@ -131,14 +131,6 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
           window.location.reload();
         }}
       />
-      <div className="text-center">
-        <button
-          onClick={() => setMode("find")}
-          className="text-sm font-medium text-sargam-gold hover:text-sargam-crimson transition-colors"
-        >
-          Already submitted an RSVP? Find and edit it here
-        </button>
-      </div>
     </div>
   );
 }
