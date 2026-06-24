@@ -17,6 +17,7 @@ type SortKey =
   | "registration_number"
   | "graduation_year"
   | "department"
+  | "current_occupation"
   | "phone_number"
   | "email"
   | "attending_status"
@@ -31,6 +32,7 @@ const columns: Array<{ key: SortKey; label: string }> = [
   { key: "registration_number", label: "Registration No." },
   { key: "graduation_year", label: "Batch" },
   { key: "department", label: "Department" },
+  { key: "current_occupation", label: "Current Status" },
   { key: "phone_number", label: "Phone Number" },
   { key: "email", label: "Email" },
   { key: "attending_status", label: "Attendance Status" },
@@ -52,6 +54,7 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
   const [regQuery, setRegQuery] = useState("");
   const [batchQuery, setBatchQuery] = useState("");
   const [departmentQuery, setDepartmentQuery] = useState("");
+  const [occQuery, setOccQuery] = useState("");
   const [phoneQuery, setPhoneQuery] = useState("");
   const [showDeleted, setShowDeleted] = useState(false);
   const [sortKey, setSortKey] = useState<SortKey>("created_at");
@@ -81,6 +84,11 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
           .includes(departmentQuery.trim().toLowerCase()),
       )
       .filter((rsvp) =>
+        (rsvp.current_occupation ?? "")
+          .toLowerCase()
+          .includes(occQuery.trim().toLowerCase()),
+      )
+      .filter((rsvp) =>
         rsvp.phone_number
           .toLowerCase()
           .includes(phoneQuery.trim().toLowerCase()),
@@ -95,6 +103,7 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
     regQuery,
     batchQuery,
     departmentQuery,
+    occQuery,
     phoneQuery,
     showDeleted,
     sortKey,
@@ -207,7 +216,7 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-5">
+          <div className="grid gap-4 md:grid-cols-3">
             <Input
               label="Search by name"
               placeholder="Alumni name"
@@ -241,6 +250,15 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
               value={departmentQuery}
               onChange={(event) => {
                 setDepartmentQuery(event.target.value);
+                setPage(1);
+              }}
+            />
+            <Input
+              label="Search by current status"
+              placeholder="Current occupation"
+              value={occQuery}
+              onChange={(event) => {
+                setOccQuery(event.target.value);
                 setPage(1);
               }}
             />
@@ -307,6 +325,7 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
                     <td className="px-4 py-3">{rsvp.registration_number}</td>
                     <td className="px-4 py-3">{rsvp.graduation_year}</td>
                     <td className="px-4 py-3">{rsvp.department}</td>
+                    <td className="px-4 py-3">{rsvp.current_occupation}</td>
                     <td className="px-4 py-3">{rsvp.phone_number}</td>
                     <td className="px-4 py-3">{rsvp.email || "—"}</td>
                     <td className="px-4 py-3">

@@ -7,6 +7,7 @@ export interface Rsvp {
   registration_number: string;
   graduation_year: string;
   department: string;
+  current_occupation: string;
   phone_number: string;
   email: string | null;
   attending_status: AttendingStatus;
@@ -24,6 +25,7 @@ export interface RsvpFormInput {
   registration_number: string;
   graduation_year: string;
   department: string;
+  current_occupation: string;
   phone_number: string;
   email?: string;
   attending_status: AttendingStatus;

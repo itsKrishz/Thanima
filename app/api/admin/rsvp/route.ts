@@ -34,6 +34,7 @@ export async function PUT(request: Request) {
         registration_number: data.registration_number,
         graduation_year: data.graduation_year,
         department: data.department,
+        current_occupation: data.current_occupation,
         phone_number: data.phone_number,
         email: data.email || null,
         attending_status: data.attending_status,

@@ -31,6 +31,11 @@ export const rsvpSchema = z
       .trim()
       .min(1, "Email address is required")
       .email("Enter a valid email address"),
+    current_occupation: z
+      .string()
+      .trim()
+      .min(2, "Please describe what you are currently doing")
+      .max(200, "Entry is too long"),
     attending_status: z.enum(["yes", "no", "maybe"]),
     special_requirements: z.string().trim().max(1000).optional(),
   });

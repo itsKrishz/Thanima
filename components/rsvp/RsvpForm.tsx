@@ -40,6 +40,7 @@ export function RsvpForm({
       registration_number: initialData?.registration_number ?? "",
       graduation_year: initialData?.graduation_year ?? "",
       department: initialData?.department ?? "",
+      current_occupation: initialData?.current_occupation ?? "",
       phone_number: initialData?.phone_number ?? "",
       email: initialData?.email ?? "",
       attending_status: initialData?.attending_status ?? "yes",
@@ -151,6 +152,12 @@ export function RsvpForm({
               </p>
             ) : null}
           </div>
+          <Input
+            label="What are you currently doing? *"
+            placeholder="e.g. Software Engineer at Google, Higher Studies, etc."
+            error={form.formState.errors.current_occupation?.message}
+            {...form.register("current_occupation")}
+          />
           <Input
             label="Phone Number *"
             placeholder="10-digit mobile number"

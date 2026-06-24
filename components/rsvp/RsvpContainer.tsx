@@ -63,6 +63,10 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
               <span className="col-span-2 text-sargam-green">{rsvp.department}</span>
             </div>
             <div className="grid grid-cols-3 py-3 text-sm">
+              <span className="font-medium text-sargam-green/60">Current Status</span>
+              <span className="col-span-2 text-sargam-green">{rsvp.current_occupation}</span>
+            </div>
+            <div className="grid grid-cols-3 py-3 text-sm">
               <span className="font-medium text-sargam-green/60">Phone Number</span>
               <span className="col-span-2 text-sargam-green">{rsvp.phone_number}</span>
             </div>
