@@ -140,3 +140,10 @@ begin
 end;
 $$;
 
+-- 5. Update unique index to exclude soft-deleted records
+drop index if exists public.rsvps_phone_number_unique;
+create unique index rsvps_phone_number_unique
+  on public.rsvps (phone_number)
+  where (is_deleted = false);
+
+
