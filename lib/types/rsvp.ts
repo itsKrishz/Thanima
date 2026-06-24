@@ -4,6 +4,7 @@ export type SadhyaStatus = "yes" | "no";
 export interface Rsvp {
   id: string;
   full_name: string;
+  registration_number: string;
   graduation_year: string;
   department: string;
   phone_number: string;
@@ -20,6 +21,7 @@ export interface Rsvp {
 
 export interface RsvpFormInput {
   full_name: string;
+  registration_number: string;
   graduation_year: string;
   department: string;
   phone_number: string;
@@ -34,5 +36,4 @@ export interface RsvpSummary {
   attending: number;
   notAttending: number;
   maybe: number;
-  totalSadhya: number;
 }

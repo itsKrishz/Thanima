@@ -31,13 +31,12 @@ export async function PUT(request: Request) {
       .from("rsvps")
       .update({
         full_name: data.full_name,
+        registration_number: data.registration_number,
         graduation_year: data.graduation_year,
         department: data.department,
         phone_number: data.phone_number,
         email: data.email || null,
         attending_status: data.attending_status,
-        sadhya_status:
-          data.attending_status === "yes" ? (data.sadhya_status ?? null) : null,
         special_requirements:
           data.attending_status === "yes"
             ? data.special_requirements || null

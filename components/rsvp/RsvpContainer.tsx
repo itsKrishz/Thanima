@@ -7,7 +7,7 @@ import { CountdownTimer } from "@/components/rsvp/CountdownTimer";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import type { Rsvp } from "@/lib/types/rsvp";
-import { formatAttendingStatus, formatSadhyaStatus } from "@/lib/utils/format";
+import { formatAttendingStatus } from "@/lib/utils/format";
 import { isEditDeadlinePassed } from "@/lib/config";
 
 export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
@@ -51,6 +51,10 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
               <span className="col-span-2 text-sargam-green font-semibold">{rsvp.full_name}</span>
             </div>
             <div className="grid grid-cols-3 py-3 text-sm">
+              <span className="font-medium text-sargam-green/60">Registration Number</span>
+              <span className="col-span-2 text-sargam-green font-semibold">{rsvp.registration_number}</span>
+            </div>
+            <div className="grid grid-cols-3 py-3 text-sm">
               <span className="font-medium text-sargam-green/60">Batch / Year</span>
               <span className="col-span-2 text-sargam-green">{rsvp.graduation_year}</span>
             </div>
@@ -73,20 +77,12 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
               </span>
             </div>
             {rsvp.attending_status === "yes" && (
-              <>
-                <div className="grid grid-cols-3 py-3 text-sm">
-                  <span className="font-medium text-sargam-green/60">Onam Sadhya</span>
-                  <span className="col-span-2 text-sargam-green font-semibold">
-                    {formatSadhyaStatus(rsvp.sadhya_status)}
-                  </span>
-                </div>
-                <div className="grid grid-cols-3 py-3 text-sm">
-                  <span className="font-medium text-sargam-green/60">Special Requirements</span>
-                  <span className="col-span-2 text-sargam-green">
-                    {rsvp.special_requirements || "None"}
-                  </span>
-                </div>
-              </>
+              <div className="grid grid-cols-3 py-3 text-sm">
+                <span className="font-medium text-sargam-green/60">Special Requirements</span>
+                <span className="col-span-2 text-sargam-green">
+                  {rsvp.special_requirements || "None"}
+                </span>
+              </div>
             )}
           </div>
         </Card>

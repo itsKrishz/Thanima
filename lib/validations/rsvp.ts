@@ -7,6 +7,11 @@ export const rsvpSchema = z
       .trim()
       .min(2, "Full name must be at least 2 characters")
       .max(100, "Full name is too long"),
+    registration_number: z
+      .string()
+      .trim()
+      .min(2, "Registration number is required")
+      .max(50, "Registration number is too long"),
     graduation_year: z
       .string()
       .trim()
@@ -27,17 +32,7 @@ export const rsvpSchema = z
       .min(1, "Email address is required")
       .email("Enter a valid email address"),
     attending_status: z.enum(["yes", "no", "maybe"]),
-    sadhya_status: z.enum(["yes", "no"]).optional(),
     special_requirements: z.string().trim().max(1000).optional(),
-  })
-  .superRefine((data, ctx) => {
-    if (data.attending_status === "yes" && !data.sadhya_status) {
-      ctx.addIssue({
-        code: "custom",
-        message: "Please select your Onam Sadhya preference",
-        path: ["sadhya_status"],
-      });
-    }
   });
 
 export type RsvpSchema = z.infer<typeof rsvpSchema>;

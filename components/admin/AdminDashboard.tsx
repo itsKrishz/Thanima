@@ -9,18 +9,17 @@ import type { Rsvp } from "@/lib/types/rsvp";
 import {
   formatAttendingStatus,
   formatDate,
-  formatSadhyaStatus,
 } from "@/lib/utils/format";
 import { cn } from "@/lib/utils/cn";
 
 type SortKey =
   | "full_name"
+  | "registration_number"
   | "graduation_year"
   | "department"
   | "phone_number"
   | "email"
   | "attending_status"
-  | "sadhya_status"
   | "created_at";
 
 type SortDirection = "asc" | "desc";
@@ -29,12 +28,12 @@ const PAGE_SIZE = 10;
 
 const columns: Array<{ key: SortKey; label: string }> = [
   { key: "full_name", label: "Name" },
+  { key: "registration_number", label: "Registration No." },
   { key: "graduation_year", label: "Batch" },
   { key: "department", label: "Department" },
   { key: "phone_number", label: "Phone Number" },
   { key: "email", label: "Email" },
   { key: "attending_status", label: "Attendance Status" },
-  { key: "sadhya_status", label: "Sadhya Status" },
   { key: "created_at", label: "Submission Date" },
 ];
 
@@ -50,6 +49,7 @@ function compareValues(a: Rsvp, b: Rsvp, key: SortKey) {
 
 export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
   const [nameQuery, setNameQuery] = useState("");
+  const [regQuery, setRegQuery] = useState("");
   const [batchQuery, setBatchQuery] = useState("");
   const [departmentQuery, setDepartmentQuery] = useState("");
   const [phoneQuery, setPhoneQuery] = useState("");
@@ -64,6 +64,11 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
       .filter((rsvp) => (showDeleted ? true : !rsvp.is_deleted))
       .filter((rsvp) =>
         rsvp.full_name.toLowerCase().includes(nameQuery.trim().toLowerCase()),
+      )
+      .filter((rsvp) =>
+        (rsvp.registration_number ?? "")
+          .toLowerCase()
+          .includes(regQuery.trim().toLowerCase()),
       )
       .filter((rsvp) =>
         rsvp.graduation_year
@@ -87,6 +92,7 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
   }, [
     rsvps,
     nameQuery,
+    regQuery,
     batchQuery,
     departmentQuery,
     phoneQuery,
@@ -201,13 +207,22 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-4">
+          <div className="grid gap-4 md:grid-cols-5">
             <Input
               label="Search by name"
               placeholder="Alumni name"
               value={nameQuery}
               onChange={(event) => {
                 setNameQuery(event.target.value);
+                setPage(1);
+              }}
+            />
+            <Input
+              label="Search by registration no."
+              placeholder="Reg number"
+              value={regQuery}
+              onChange={(event) => {
+                setRegQuery(event.target.value);
                 setPage(1);
               }}
             />
@@ -289,15 +304,13 @@ export function AdminDashboard({ rsvps }: { rsvps: Rsvp[] }) {
                         </span>
                       )}
                     </td>
+                    <td className="px-4 py-3">{rsvp.registration_number}</td>
                     <td className="px-4 py-3">{rsvp.graduation_year}</td>
                     <td className="px-4 py-3">{rsvp.department}</td>
                     <td className="px-4 py-3">{rsvp.phone_number}</td>
                     <td className="px-4 py-3">{rsvp.email || "—"}</td>
                     <td className="px-4 py-3">
                       {formatAttendingStatus(rsvp.attending_status)}
-                    </td>
-                    <td className="px-4 py-3">
-                      {formatSadhyaStatus(rsvp.sadhya_status)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap">
                       {formatDate(rsvp.created_at)}

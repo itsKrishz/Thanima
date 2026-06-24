@@ -1,4 +1,4 @@
-import type { AttendingStatus, Rsvp, RsvpSummary, SadhyaStatus } from "@/lib/types/rsvp";
+import type { AttendingStatus, Rsvp, RsvpSummary } from "@/lib/types/rsvp";
 
 export function formatAttendingStatus(status: AttendingStatus): string {
   const labels: Record<AttendingStatus, string> = {
@@ -7,11 +7,6 @@ export function formatAttendingStatus(status: AttendingStatus): string {
     maybe: "Maybe",
   };
   return labels[status];
-}
-
-export function formatSadhyaStatus(status: SadhyaStatus | null): string {
-  if (!status) return "—";
-  return status === "yes" ? "Yes" : "No";
 }
 
 export function formatDate(dateString: string): string {
@@ -30,9 +25,6 @@ export function computeSummary(rsvps: Rsvp[]): RsvpSummary {
 
       if (rsvp.attending_status === "yes") {
         summary.attending += 1;
-        if (rsvp.sadhya_status === "yes") {
-          summary.totalSadhya += 1;
-        }
       } else if (rsvp.attending_status === "no") {
         summary.notAttending += 1;
       } else {
@@ -46,7 +38,6 @@ export function computeSummary(rsvps: Rsvp[]): RsvpSummary {
       attending: 0,
       notAttending: 0,
       maybe: 0,
-      totalSadhya: 0,
     },
   );
 }

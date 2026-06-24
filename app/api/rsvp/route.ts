@@ -20,15 +20,12 @@ export async function POST(request: Request) {
 
     const { data: insertedId, error } = await supabase.rpc("insert_rsvp", {
       f_name: data.full_name,
+      reg_num: data.registration_number,
       grad_year: data.graduation_year,
       dept: data.department,
       phone: data.phone_number,
       mail: data.email || null,
       attend: data.attending_status,
-      sadhya:
-        data.attending_status === "yes"
-          ? (data.sadhya_status ?? null)
-          : null,
       reqs:
         data.attending_status === "yes"
           ? data.special_requirements || null
@@ -118,12 +115,12 @@ export async function PUT(request: Request) {
       {
         rsvp_id: rsvpId,
         f_name: data.full_name,
+        reg_num: data.registration_number,
         grad_year: data.graduation_year,
         dept: data.department,
         phone: data.phone_number,
         mail: data.email || null,
         attend: data.attending_status,
-        sadhya: data.attending_status === "yes" ? (data.sadhya_status ?? null) : null,
         reqs: data.attending_status === "yes" ? (data.special_requirements || null) : null,
       },
     );

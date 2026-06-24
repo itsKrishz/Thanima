@@ -1,5 +1,5 @@
 import type { Rsvp } from "@/lib/types/rsvp";
-import { formatAttendingStatus, formatDate, formatSadhyaStatus } from "@/lib/utils/format";
+import { formatAttendingStatus, formatDate } from "@/lib/utils/format";
 
 function escapeCsvValue(value: string | number | null | undefined): string {
   const stringValue = value == null ? "" : String(value);
@@ -12,12 +12,12 @@ function escapeCsvValue(value: string | number | null | undefined): string {
 export function rsvpsToCsv(rsvps: Rsvp[]): string {
   const headers = [
     "Name",
+    "Registration Number",
     "Batch",
     "Department",
     "Phone Number",
     "Email",
     "Attendance Status",
-    "Sadhya Status",
     "Special Requirements",
     "Submission Date",
   ];
@@ -25,12 +25,12 @@ export function rsvpsToCsv(rsvps: Rsvp[]): string {
   const rows = rsvps.map((rsvp) =>
     [
       rsvp.full_name,
+      rsvp.registration_number,
       rsvp.graduation_year,
       rsvp.department,
       rsvp.phone_number,
       rsvp.email ?? "",
       formatAttendingStatus(rsvp.attending_status),
-      formatSadhyaStatus(rsvp.sadhya_status),
       rsvp.special_requirements ?? "",
       formatDate(rsvp.created_at),
     ]

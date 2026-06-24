@@ -37,12 +37,12 @@ export function RsvpForm({
     resolver: zodResolver(rsvpSchema),
     defaultValues: {
       full_name: initialData?.full_name ?? "",
+      registration_number: initialData?.registration_number ?? "",
       graduation_year: initialData?.graduation_year ?? "",
       department: initialData?.department ?? "",
       phone_number: initialData?.phone_number ?? "",
       email: initialData?.email ?? "",
       attending_status: initialData?.attending_status ?? "yes",
-      sadhya_status: initialData?.sadhya_status ?? "yes",
       special_requirements: initialData?.special_requirements ?? "",
     },
   });
@@ -65,8 +65,6 @@ export function RsvpForm({
           id: initialData?.id,
           email: values.email || undefined,
           special_requirements: values.special_requirements || undefined,
-          sadhya_status:
-            values.attending_status === "yes" ? values.sadhya_status : undefined,
         }),
       });
 
@@ -115,6 +113,12 @@ export function RsvpForm({
             placeholder="Enter your full name"
             error={form.formState.errors.full_name?.message}
             {...form.register("full_name")}
+          />
+          <Input
+            label="Registration Number *"
+            placeholder="Enter your registration number"
+            error={form.formState.errors.registration_number?.message}
+            {...form.register("registration_number")}
           />
           <Input
             label="Graduation Year / Batch *"

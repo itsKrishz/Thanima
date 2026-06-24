@@ -10,7 +10,6 @@ const cards: Array<{
   { label: "Attending", key: "attending", accent: "text-sargam-green" },
   { label: "Not Attending", key: "notAttending", accent: "text-sargam-crimson" },
   { label: "Maybe", key: "maybe", accent: "text-sargam-gold" },
-  { label: "Total Sadhya Count", key: "totalSadhya", accent: "text-sargam-crimson" },
 ];
 
 export function SummaryCards({ summary }: { summary: RsvpSummary }) {
