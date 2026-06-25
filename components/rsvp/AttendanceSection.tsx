@@ -2,7 +2,6 @@
 
 import type { UseFormReturn } from "react-hook-form";
 import { RadioGroup } from "@/components/ui/RadioGroup";
-import { Textarea } from "@/components/ui/Textarea";
 import type { AttendingStatus, SadhyaStatus } from "@/lib/types/rsvp";
 import type { RsvpSchema } from "@/lib/validations/rsvp";
 
@@ -33,14 +32,7 @@ export function AttendanceSection({
         error={form.formState.errors.attending_status?.message}
       />
 
-      {attendingStatus === "yes" ? (
-        <Textarea
-          label="Any Special Requirements?"
-          placeholder="Dietary restrictions, accessibility needs, or other notes"
-          error={form.formState.errors.special_requirements?.message}
-          {...form.register("special_requirements")}
-        />
-      ) : null}
+      {/* Special requirements textarea removed */}
     </div>
   );
 }

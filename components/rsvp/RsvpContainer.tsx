@@ -21,7 +21,7 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
   if (mode === "already_submitted" && rsvp) {
     return (
       <div className="space-y-6">
-        <CountdownTimer targetDate="2026-08-19T10:00:00" />
+        <CountdownTimer targetDate="2026-08-20T10:00:00" />
         <Card className="border-sargam-gold bg-white p-6 shadow-sm">
           <div className="mb-6 flex flex-col justify-between gap-4 md:flex-row md:items-center">
             <div>
@@ -80,14 +80,7 @@ export function RsvpContainer({ initialRsvp }: { initialRsvp: Rsvp | null }) {
                 {formatAttendingStatus(rsvp.attending_status)}
               </span>
             </div>
-            {rsvp.attending_status === "yes" && (
-              <div className="grid grid-cols-3 py-3 text-sm">
-                <span className="font-medium text-sargam-green/60">Special Requirements</span>
-                <span className="col-span-2 text-sargam-green">
-                  {rsvp.special_requirements || "None"}
-                </span>
-              </div>
-            )}
+            {/* Special requirements display removed */}
           </div>
         </Card>
       </div>

@@ -48,7 +48,7 @@ export default async function HomePage() {
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sargam-gold mb-1">
                 Date & Time
               </p>
-              <p className="text-sargam-green font-medium">Wednesday, August 19, 2026</p>
+              <p className="text-sargam-green font-medium">Thursday, August 20, 2026</p>
               <p className="text-sm text-sargam-green/70">10:00 AM onwards</p>
             </div>
             <div>
@@ -75,16 +75,27 @@ export default async function HomePage() {
           <p className="text-sm text-sargam-green/80 mb-6">
             Have questions or need assistance regarding your RSVP or the event? Reach out to our organizing team:
           </p>
-          <div className="grid gap-6 sm:grid-cols-2">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.1em] text-sargam-gold mb-1">Coordinator 1</p>
-              <p className="text-sm font-semibold text-sargam-green">Athul</p>
-              <p className="text-sm text-sargam-green/70">+91 83018 71398</p>
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-sargam-gold mb-3">Overall Leads</h3>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div>
+                <p className="text-sm font-semibold text-sargam-green">Nandhana</p>
+                <p className="text-sm text-sargam-green/70">+91 95676 94302</p>
+              </div>
             </div>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.1em] text-sargam-gold mb-1">Coordinator 2</p>
-              <p className="text-sm font-semibold text-sargam-green">Bhadra</p>
-              <p className="text-sm text-sargam-green/70">+91 79940 73284 </p>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold uppercase tracking-[0.15em] text-sargam-gold mb-3">Coordinators</h3>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <div>
+                <p className="text-sm font-semibold text-sargam-green">Athul</p>
+                <p className="text-sm text-sargam-green/70">+91 83018 71398</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-sargam-green">Bhadra</p>
+                <p className="text-sm text-sargam-green/70">+91 79940 73284 </p>
+              </div>
             </div>
           </div>
         </section>
